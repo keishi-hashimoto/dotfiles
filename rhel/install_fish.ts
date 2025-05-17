@@ -1,22 +1,20 @@
 import { Logger } from "../utils/logger.ts";
 import $ from "../utils/prompt.ts";
 import { setDefaultShell } from "../utils/shell.ts";
+import { yumInstall } from "./utils.ts";
+import { getCurrentShell } from "../utils/shell.ts"
 
 const logger = new Logger("Install Fish (RHEL)");
 
-const isFishInstalled = async (): Promise<boolean> => {
-  const result = await $`which fish`.noThrow();
-  const code = result.code;
-  logger.debug(`status code of grep command: ${code}`);
-  return code === 0;
-};
-
 const installFish = async () => {
-  logger.info("starting to install fish.");
-  await $`sudo dnf install -y fish`;
-  logger.info("fish is installed");
+  await yumInstall("fish");
 };
 const setFishAsDefaultShell = async () => {
+  const currentShell = await getCurrentShell()
+  if (currentShell === "fish") {
+    logger.info("fish is already set as default shell.");
+    return;
+  }
   const user = Deno.env.get("USER");
   if (user === undefined) {
     const msg = "OS ユーザー名が取得できませんでした";
@@ -49,15 +47,6 @@ const installOhMyFish = async () => {
 };
 
 export const setupFish = async () => {
-  // fish がインストール済みなら終了
-  logger.info("check if fish is already installed.");
-  // ベストかは分からないが、とりあえず /etc/shells を見る
-  const isInstalled = await isFishInstalled();
-  if (isInstalled) {
-    logger.info("fish is already installed.");
-    return;
-  }
-  logger.info("fish is not installed.");
   await installFish();
   await setFishAsDefaultShell();
   await testFish();
