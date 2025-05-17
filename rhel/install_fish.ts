@@ -2,7 +2,7 @@ import { Logger } from "../utils/logger.ts";
 import $ from "../utils/prompt.ts";
 import { setDefaultShell } from "../utils/shell.ts";
 import { yumInstall } from "./utils.ts";
-import { getCurrentShell } from "../utils/shell.ts"
+import { getCurrentShell } from "../utils/shell.ts";
 
 const logger = new Logger("Install Fish (RHEL)");
 
@@ -10,7 +10,7 @@ const installFish = async () => {
   await yumInstall("fish");
 };
 const setFishAsDefaultShell = async () => {
-  const currentShell = await getCurrentShell()
+  const currentShell = await getCurrentShell();
   if (currentShell === "fish") {
     logger.info("fish is already set as default shell.");
     return;
