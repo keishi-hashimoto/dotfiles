@@ -1,0 +1,29 @@
+# Emoji Prefixes
+#
+# ✨  :sparkles:     機能追加 (Add feature)
+# 🚿  :shower:       機能削除 (Remove feature)
+# 💥  :boom:         破壊的変更 (Breaking changes)
+# 💩  :hankey:       うんコード (Bad code)
+#
+# 👽  :alien:        国際化 (Internationalisation)
+# 👕  :shirt:        リント (Lint)
+# 💚  :green_heart:  テスト (Test)
+# 📝  :memo:         コメント (Comment)
+# 📚  :books:        ドキュメント (Document)
+# 🚢  :ship:         デプロイメント (Deployment)
+# 🎬  :clapper:      開発ツール (Development tools)
+# 🆙  :up:           依存関係 (Dependencies)
+#
+# 😇  :innocent:     凡ミス系修正 (Typo fix)
+# 🐛  :bug:          バグ修正 (Bug fix)
+# 👮  :cop:          セキュリティ修正 (Security fix)
+# 🚀  :rocket:       パフォーマンス修正 (Performance fix)
+# 🎨  :art:          デザインUI/UX 修正 (Accessibility)
+# 💪  :muscle:       リファクタリング (Refactoring)
+#
+# 🚧  :construction: 途中 (Work In Progress)
+#
+# Install:
+#
+#   git config commit.template .gitmessage
+#
