@@ -20,3 +20,7 @@ export const isWritten = async (
   logger.debug(`return code of grep command: ${result.code}`);
   return code === 0;
 };
+
+export const setDefaultShell = async (user: string, shellPath: string) => {
+  await $`sudo usermod ${user} -s ${shellPath}`;
+};

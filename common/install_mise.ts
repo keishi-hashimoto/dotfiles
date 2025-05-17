@@ -1,5 +1,5 @@
 import $ from "../utils/prompt.ts";
-import { type MultiSelectOption } from "@david/dax";
+import { CommandBuilder, type MultiSelectOption } from "@david/dax";
 import { shells } from "../constants.ts";
 import { Logger } from "../utils/logger.ts";
 import { getCurrentShell } from "../utils/shell.ts";
@@ -63,22 +63,24 @@ const activateMise = async () => {
     );
     // 後続の noThrow で全てのエラーが無視されるので、ファイルの有無は事前に確認しておく
     const isExists = await $.path(file).exists();
-    logger.info(`${$.path(file)}: ${isExists}`);
-    if (!isExists) {
-      logger.warning(
-        `activation in shell ${shell} is skipped since target file ${file} is not exists.`,
-      );
-      continue;
-    }
-    const _isWritten = await isWritten(file, keyword);
-    if (_isWritten) {
-      logger.info(
-        `activation keyword ${keyword} is already written in file ${file}.`,
-      );
-      continue;
+    if (isExists) {
+      const _isWritten = await isWritten(file, keyword);
+      if (_isWritten) {
+        logger.info(
+          `activation keyword ${keyword} is already written in file ${file}.`,
+        );
+        continue;
+      }
     }
     logger.info(`write activation keyword "${keyword}" to file ${file}.`);
-    await $`echo ${keyword} >> ${$.path(file)}`;
+    // .rc ファイルが確実に存在するように、当該のシェルを経由させる
+    // 以下のやり方だと bash -c "echo "keyword" >> ~/.bashrc" のようになり "" が足りないので、CommandBuilder を使う
+    // await $`${shell} -c "echo ${keyword} >> ${$.path(file)}"`;
+    await new CommandBuilder().command([
+      shell,
+      "-c",
+      `echo ${keyword} >> ${file}`
+    ])
     logger.info(`activation keyword is added to file ${file}.`);
   }
 };

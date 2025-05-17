@@ -1,2 +1,5 @@
 [tools]
 deno = "2.3"
+
+[tasks.compile]
+run = "deno compile -o dest/ -A main.ts"
