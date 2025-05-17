@@ -3,3 +3,5 @@ export const shells = [
   "zsh",
   "fish",
 ];
+
+export const defaultBranch = "main";
