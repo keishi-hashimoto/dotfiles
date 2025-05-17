@@ -1,5 +1,5 @@
 export const shells = [
-    "bash",
-    "zsh",
-    "fish"
-]
+  "bash",
+  "zsh",
+  "fish",
+];

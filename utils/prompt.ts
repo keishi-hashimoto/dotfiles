@@ -1,5 +1,5 @@
-import $ from "@david/dax"
+import $ from "@david/dax";
 
-$.setPrintCommand(true)
+$.setPrintCommand(true);
 
-export default $
+export default $;
