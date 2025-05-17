@@ -79,8 +79,8 @@ const activateMise = async () => {
     await new CommandBuilder().command([
       shell,
       "-c",
-      `echo ${keyword} >> ${file}`
-    ])
+      `echo ${keyword} >> ${file}`,
+    ]);
     logger.info(`activation keyword is added to file ${file}.`);
   }
 };
