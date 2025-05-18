@@ -8,6 +8,7 @@ import $ from "./utils/prompt.ts";
 
 const allNoOptions: Options = {
   fish: false,
+  vim: false,
   git: false,
   gh: false,
   mise: false,
@@ -22,7 +23,15 @@ const allYesOptions: Options = Object.assign(
   }),
 );
 
-const optionKeys: OptionKeys[] = ["fish", "git", "gh", "mise", "z", "utils"];
+const optionKeys: OptionKeys[] = [
+  "fish",
+  "vim",
+  "git",
+  "gh",
+  "mise",
+  "z",
+  "utils",
+];
 
 const askEachInstallOption = async (key: OptionKeys): Promise<boolean> => {
   const doInstall = await $.confirm(

@@ -9,6 +9,7 @@ export class BaseInstaller {
   }
   async install() {
     const options = this.#options;
+    if (options.vim) await this.installVim();
     if (options.git) await this.installGit();
     if (options.gh) await this.installGh();
     if (options.fish) await this.installFish();
@@ -19,6 +20,7 @@ export class BaseInstaller {
 
   async installFish() {
   }
+  async installVim() {}
 
   async installMise() {
     await installMise();
