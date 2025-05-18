@@ -1,5 +1,6 @@
 import { installMise } from "../common/install_mise.ts";
 import { type Options } from "./options.ts";
+import { installZ } from "../common/install_z.ts";
 
 export class BaseInstaller {
   #options: Options;
@@ -11,6 +12,7 @@ export class BaseInstaller {
     if (options.git) await this.installGit();
     if (options.fish) await this.installFish();
     if (options.mise) await this.installMise();
+    if (options.z) await this.installZ();
   }
 
   async installFish() {
@@ -21,4 +23,7 @@ export class BaseInstaller {
   }
 
   async installGit() {}
+  async installZ() {
+    await installZ();
+  }
 }

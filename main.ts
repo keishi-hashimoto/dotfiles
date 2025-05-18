@@ -10,6 +10,7 @@ const allNoOptions: Options = {
   fish: false,
   git: false,
   mise: false,
+  z: false,
 };
 
 const allYesOptions: Options = Object.assign(
@@ -19,7 +20,7 @@ const allYesOptions: Options = Object.assign(
   }),
 );
 
-const optionKeys: OptionKeys[] = ["fish", "git", "mise"];
+const optionKeys: OptionKeys[] = ["fish", "git", "mise", "z"];
 
 const askEachInstallOption = async (key: OptionKeys): Promise<boolean> => {
   const doInstall = await $.confirm(
