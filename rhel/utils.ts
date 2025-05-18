@@ -23,3 +23,10 @@ export const yumInstall = async (pkg: string) => {
   await $`sudo yum install -y ${pkg}`;
   logger.info(`${pkg} is installed`);
 };
+
+export const yumInstallMulti = async (pkgs: string[]) => {
+  // チェックが煩雑になる && 一つでも未インストールがあれば結局同じことなのでインストール済みかは確認しない
+  logger.info(`starting install ${pkgs}`);
+  await $`sudo yum install -y ${pkgs}`;
+  logger.info(`${pkgs} is installed`);
+};
