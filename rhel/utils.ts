@@ -13,12 +13,17 @@ const isInstalled = async (pkg: string): Promise<boolean> => {
   return code === 0;
 };
 
-export const yumInstall = async (pkg: string) => {
+export const yumInstall = async (
+  pkg: string,
+  checkIfInstalled: boolean = true,
+) => {
   logger.info(`starting install ${pkg}`);
-  const _isInstalled = await isInstalled(pkg);
-  if (_isInstalled) {
-    logger.info(`${pkg} is already installed.`);
-    return;
+  if (checkIfInstalled) {
+    const _isInstalled = await isInstalled(pkg);
+    if (_isInstalled) {
+      logger.info(`${pkg} is already installed.`);
+      return;
+    }
   }
   await $`sudo yum install -y ${pkg}`;
   logger.info(`${pkg} is installed`);
