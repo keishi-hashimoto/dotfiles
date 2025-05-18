@@ -35,3 +35,9 @@ export const yumInstallMulti = async (pkgs: string[]) => {
   await $`sudo yum install -y ${pkgs}`;
   logger.info(`${pkgs} is installed`);
 };
+
+export const addRepo = async (repo: string) => {
+  logger.info(`add repository ${repo}`)
+  await `sudo dnf config-manager --add-repo ${repo}`
+  logger.info(`repository ${repo} is added.`)
+}
