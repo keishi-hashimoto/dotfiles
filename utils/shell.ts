@@ -2,12 +2,18 @@ import $ from "./prompt.ts";
 import * as path from "jsr:@std/path";
 
 import { Logger } from "./logger.ts";
+import { shells, SupportedShell } from "../constants.ts";
 
 const logger = new Logger("utils");
 
-export const getCurrentShell = async (): Promise<string> => {
+export const getCurrentShell = async (): Promise<SupportedShell> => {
   const shellAbspath = await $`printenv SHELL`.text("stdout");
-  return path.basename(shellAbspath);
+  const shell = path.basename(shellAbspath);
+  if (!shells.some((s) => s === shell)) {
+    const msg = `shell "${shell}" is not supported.`;
+    throw new Error(msg);
+  }
+  return shell as SupportedShell;
 };
 
 export const isWritten = async (
@@ -23,4 +29,16 @@ export const isWritten = async (
 
 export const setDefaultShell = async (user: string, shellPath: string) => {
   await $`sudo usermod ${user} -s ${shellPath}`;
+};
+
+export const getShellConfigFile = (shell: SupportedShell) => {
+  const homeDir = Deno.env.get("HOME");
+  switch (shell) {
+    case "bash":
+      return `${homeDir}/.bashrc`;
+    case "zsh":
+      return `${homeDir}/.zshrc`;
+    case "fish":
+      return `${homeDir}/.config/fish/config.fish`;
+  }
 };
