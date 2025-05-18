@@ -10,6 +10,7 @@ export class BaseInstaller {
   async install() {
     const options = this.#options;
     if (options.git) await this.installGit();
+    if (options.gh) await this.installGh();
     if (options.fish) await this.installFish();
     if (options.mise) await this.installMise();
     if (options.z) await this.installZ();
@@ -24,6 +25,7 @@ export class BaseInstaller {
   }
 
   async installGit() {}
+  async installGh() {}
   async installZ() {
     await installZ();
   }

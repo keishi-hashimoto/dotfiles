@@ -1,6 +1,7 @@
 export type Options = {
   fish: boolean;
   git: boolean;
+  gh: boolean;
   mise: boolean;
   z: boolean;
   utils: boolean;
