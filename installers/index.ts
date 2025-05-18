@@ -13,6 +13,7 @@ export class BaseInstaller {
     if (options.fish) await this.installFish();
     if (options.mise) await this.installMise();
     if (options.z) await this.installZ();
+    if (options.utils) await this.installUtils();
   }
 
   async installFish() {
@@ -26,4 +27,5 @@ export class BaseInstaller {
   async installZ() {
     await installZ();
   }
+  async installUtils() {}
 }

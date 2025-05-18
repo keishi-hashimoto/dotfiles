@@ -7,3 +7,5 @@ export const shells = [
 export type SupportedShell = (typeof shells)[number];
 
 export const defaultBranch = "main";
+
+export const utilities = ["fzf", "bat"];

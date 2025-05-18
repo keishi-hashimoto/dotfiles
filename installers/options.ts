@@ -3,6 +3,7 @@ export type Options = {
   git: boolean;
   mise: boolean;
   z: boolean;
+  utils: boolean;
 };
 
 export type OptionKeys = keyof Options;
