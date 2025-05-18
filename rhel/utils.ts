@@ -16,6 +16,7 @@ const isInstalled = async (pkg: string): Promise<boolean> => {
 export const yumInstall = async (
   pkg: string,
   checkIfInstalled: boolean = true,
+  opts: string = "",
 ) => {
   logger.info(`starting install ${pkg}`);
   if (checkIfInstalled) {
@@ -25,7 +26,7 @@ export const yumInstall = async (
       return;
     }
   }
-  await $`sudo yum install -y ${pkg}`;
+  await $`sudo yum install -y ${pkg} ${$.rawArg(opts)}`;
   logger.info(`${pkg} is installed`);
 };
 
@@ -37,7 +38,7 @@ export const yumInstallMulti = async (pkgs: string[]) => {
 };
 
 export const addRepo = async (repo: string) => {
-  logger.info(`add repository ${repo}`)
-  await `sudo dnf config-manager --add-repo ${repo}`
-  logger.info(`repository ${repo} is added.`)
-}
+  logger.info(`add repository ${repo}`);
+  await `sudo dnf config-manager --add-repo ${repo}`;
+  logger.info(`repository ${repo} is added.`);
+};
