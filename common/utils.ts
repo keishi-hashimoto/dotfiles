@@ -79,7 +79,7 @@ export const activate = async (
       shell,
       "-c",
       `echo "${keyword}" >> ${file}`,
-    ]);
+    ]).printCommand(true);
     logger.info(`activation keyword is added to file ${file}.`);
   }
 };
