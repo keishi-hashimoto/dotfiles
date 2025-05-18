@@ -42,3 +42,27 @@ export const getShellConfigFile = (shell: SupportedShell) => {
       return `${homeDir}/.config/fish/config.fish`;
   }
 };
+
+const expandHomeDir = (file: string): string => {
+  if (!file.includes("~")) return file;
+
+  const homeDir = Deno.env.get("HOME");
+  if (homeDir === undefined) {
+    const msg = "ホームディレクトリが特定できませんでした";
+    logger.error(msg);
+    throw new Error(msg);
+  }
+  return file.replace("~", homeDir);
+};
+
+export const patchCofigFile = async (file: string, newText: string) => {
+  logger.info(`patch file ${file}.`);
+  file = expandHomeDir(file);
+  if (await $.path(file).exists()) {
+    const backupFile = `${file}.bak`;
+    await $.path(file).copy(backupFile, { overwrite: true });
+  }
+
+  $.path(file).writeTextSync(newText);
+  logger.info(`file ${file} is patched.`);
+};
