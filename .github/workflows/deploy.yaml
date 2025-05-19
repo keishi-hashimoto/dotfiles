@@ -25,7 +25,7 @@ jobs:
           deno-version: '2.3.1'
 
       - name: Compile
-        run: deno compile --allow-all --output dest/ main.ts
+        run: deno compile --allow-all --output dest/dotfiles main.ts
       
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
