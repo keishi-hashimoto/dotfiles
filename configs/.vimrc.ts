@@ -27,10 +27,6 @@ nnoremap k gk
 " 見た目系
 " 行番号を表示
 set number
-" 通常文字列の文字色を黄色にする
-hi Constant ctermfg=14
-" カーソルラインの設定を初期化
-hi clear CursorLine
 " 現在の行を強調表示
 set cursorline
 " 行末の1文字先までカーソルを移動できるように
@@ -58,13 +54,12 @@ set statusline+=[ENC=%{&fileencoding}]
 set statusline+=[ROW=%l/%L]
 " 現在列数
 set statusline+=[COL=%c]
-"
-ステータスラインを常に表示(0:表示しない、1:2つ以上ウィンドウがある時だけ表示)
+" ステータスラインを常に表示(0:表示しない、1:2つ以上ウィンドウがある時だけ表示)
 set laststatus=2
 
 " Tab系
 " 不可視文字を可視化(タブが「^ 」と表示される)
-set list listchars=tab:\^\
+set list listchars=tab:\\^\\
 " Tab文字を半角スペースにする
 set expandtab
 " 行頭以外のTab文字の表示幅（スペースいくつ分）
@@ -79,7 +74,6 @@ set incsearch
 set wrapscan
 " 検索語をハイライト表示
 set hlsearch
-" ESC連打でハイライト解除
-nmap  :nohlsearch
 " シンタックスハイライトの有効化
-syntax enable`;
+syntax enable
+`;
