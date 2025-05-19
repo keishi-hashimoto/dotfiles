@@ -1,4 +1,4 @@
 {
-    "deno.path": "/root/.local/share/mise/installs/deno/2.3.1/bin/deno",
-    "deno.enable": true
+  "deno.path": "/root/.local/share/mise/installs/deno/2.3.1/bin/deno",
+  "deno.enable": true
 }

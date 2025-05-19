@@ -1,10 +1,81 @@
 #!/usr/bin/env -S deno run -A
 
-export function add(a: number, b: number): number {
-  return a + b;
-}
+import { RHELlInstaller } from "./installers/rhel_installer.ts";
+import { getPlatform } from "./utils/platforms.ts";
+import { Command } from "@cliffy/command";
+import { OptionKeys, type Options } from "./installers/options.ts";
+import $ from "./utils/prompt.ts";
 
-// Learn more at https://docs.deno.com/runtime/manual/examples/module_metadata#concepts
-if (import.meta.main) {
-  console.log("Add 2 + 3 =", add(2, 3));
-}
+const allNoOptions: Options = {
+  fish: false,
+  vim: false,
+  git: false,
+  gh: false,
+  mise: false,
+  z: false,
+  utils: false,
+};
+
+const allYesOptions: Options = Object.assign(
+  {},
+  ...Object.keys(allNoOptions).map((key) => {
+    return { [key]: true };
+  }),
+);
+
+const optionKeys: OptionKeys[] = [
+  "fish",
+  "vim",
+  "git",
+  "gh",
+  "mise",
+  "z",
+  "utils",
+];
+
+const askEachInstallOption = async (key: OptionKeys): Promise<boolean> => {
+  const doInstall = await $.confirm(
+    `install ${key} or not`,
+    { default: false },
+  );
+  return doInstall;
+};
+
+const askInstallOptions = async (): Promise<Options> => {
+  const options = allNoOptions;
+  for (const key of optionKeys) {
+    const doInstall = await askEachInstallOption(key);
+    if (doInstall) {
+      options[key] = doInstall;
+    }
+  }
+  return options;
+};
+
+const runInstaller = async (options: Options) => {
+  const platform = await getPlatform();
+  switch (platform) {
+    case "RHEL": {
+      const installer = new RHELlInstaller(options);
+      await installer.install();
+      break;
+    }
+    case "Ubuntu":
+      //
+      break;
+  }
+};
+
+const cmd = new Command()
+  .name("installer")
+  .option("-a, --all", "run installer of all targets.", { default: false })
+  .action(async ({ all }: { all: boolean }) => {
+    let options: Options = allYesOptions;
+    if (!all) {
+      options = await askInstallOptions();
+    }
+    console.log(`options: ${options}`);
+    await runInstaller(options);
+  });
+
+cmd.parse(Deno.args);

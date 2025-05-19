@@ -1,0 +1,20 @@
+#!/usr/bin/env -S deno run -A
+import $ from "../utils/prompt.ts"
+const checkTsFilesStaged = async (): Promise<boolean> => {
+    const tsStaged = await $`git diff --staged --name-only "*.ts"`.text()
+    return tsStaged !== ""
+}
+
+const denoFmt = async () => {
+    await $`deno fmt --check`
+}
+
+const main = async () => {
+    const tsFilesStaged = await checkTsFilesStaged()
+    if (!tsFilesStaged) {
+        return
+    }
+    await denoFmt()
+}
+
+await main()
