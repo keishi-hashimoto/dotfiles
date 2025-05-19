@@ -39,6 +39,6 @@ export const yumInstallMulti = async (pkgs: string[]) => {
 
 export const addRepo = async (repo: string) => {
   logger.info(`add repository ${repo}`);
-  await `sudo dnf config-manager --add-repo ${repo}`;
+  await $`sudo dnf config-manager --add-repo ${repo}`;
   logger.info(`repository ${repo} is added.`);
 };
