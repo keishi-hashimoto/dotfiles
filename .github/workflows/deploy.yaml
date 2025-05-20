@@ -28,7 +28,7 @@ jobs:
         run: deno compile --allow-all --output dest/dotfiles main.ts
       
       - name: Upload Artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-pages-artifact@v3
         with:
           name: github-pages
           path: dest/
