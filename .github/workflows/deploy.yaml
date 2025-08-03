@@ -10,11 +10,7 @@ defaults:
   run:
     shell: bash
 
-permissions:
-  contents: read
-  id-token: write
-  pull-requests: write
-  pages: write
+permissions: {}
 
 jobs:
   compile:
