@@ -1,5 +1,6 @@
 [tools]
 deno = "2.3"
-
+actionlint = "latest"
+pre-commit = "latest"
 [tasks.compile]
 run = "deno compile -o dest/ -A main.ts"
