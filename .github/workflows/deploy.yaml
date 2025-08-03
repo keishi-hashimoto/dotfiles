@@ -15,6 +15,7 @@ permissions:
 jobs:
   compile:
     runs-on: ubuntu-latest
+    timeout-minutes: 5
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -22,23 +23,24 @@ jobs:
       - name: Setup Deno
         uses: denoland/setup-deno@v2
         with:
-          deno-version: '2.3.1'
+          deno-version: "2.3.1"
 
       - name: Compile
         run: deno compile --allow-all --output dest/dotfiles main.ts
-      
+
       - name: Upload Artifact
         uses: actions/upload-pages-artifact@v3
         with:
           name: github-pages
           path: dest/
-    
+
   deploy:
     needs: compile
     runs-on: ubuntu-latest
     environment:
       name: github-pages
       url: ${{ steps.deploy.outputs.page_url }}
+    timeout-minutes: 5
     steps:
       - name: Deploy to GitHub Pages
         id: deploy
