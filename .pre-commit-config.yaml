@@ -1,0 +1,12 @@
+repos:
+  - repo: https://github.com/rhysd/actionlint
+    rev: v1.7.7
+    hooks:
+      - id: actionlint-system
+        name: Lint GitHub Actions workflow files
+        description: Runs system-installed actionlint to lint GitHub Actions workflow files
+        language: system
+        types: ["yaml"]
+        files: ^\.github/workflows/
+        entry: actionlint -verbose
+        verbose: true
