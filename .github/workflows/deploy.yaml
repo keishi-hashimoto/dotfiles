@@ -20,10 +20,8 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup Deno
-        uses: denoland/setup-deno@v2
-        with:
-          deno-version: "2.3.1"
+      - name: Setup Deno With mise
+        uses: jdx/mise-action@v2
 
       - name: Compile
         run: deno compile --allow-all --output dest/dotfiles main.ts
