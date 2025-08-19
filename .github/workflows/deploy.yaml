@@ -28,7 +28,7 @@ jobs:
         uses: actions/checkout@v5
 
       - name: Setup Deno With mise
-        uses: jdx/mise-action@v2
+        uses: jdx/mise-action@v3
 
       - name: Compile
         run: deno compile --allow-all --output dest/dotfiles main.ts
